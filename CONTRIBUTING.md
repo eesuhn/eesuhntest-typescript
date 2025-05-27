@@ -55,12 +55,12 @@ $ cd eesuhntest-typescript
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link eesuhntest
+$ yarn link @eesuhn/eesuhntest-typescript
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global eesuhntest
+$ pnpm link -—global @eesuhn/eesuhntest-typescript
 ```
 
 ## Running tests

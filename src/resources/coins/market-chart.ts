@@ -13,24 +13,22 @@ export class MarketChart extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.coins.marketChart.retrieveRange('bitcoin', {
-   *     from: 0,
-   *     to: 0,
-   *     vs_currency: 'usd',
-   *   });
+   * const response = await client.coins.marketChart.getRange(
+   *   'bitcoin',
+   *   { from: 0, to: 0, vs_currency: 'usd' },
+   * );
    * ```
    */
-  retrieveRange(
+  getRange(
     id: string,
-    query: MarketChartRetrieveRangeParams,
+    query: MarketChartGetRangeParams,
     options?: RequestOptions,
-  ): APIPromise<MarketChartRetrieveRangeResponse> {
+  ): APIPromise<MarketChartGetRangeResponse> {
     return this._client.get(path`/coins/${id}/market_chart/range`, { query, ...options });
   }
 }
 
-export interface MarketChartRetrieveRangeResponse {
+export interface MarketChartGetRangeResponse {
   market_caps?: Array<Array<number>>;
 
   prices?: Array<Array<number>>;
@@ -38,7 +36,7 @@ export interface MarketChartRetrieveRangeResponse {
   total_volumes?: Array<Array<number>>;
 }
 
-export interface MarketChartRetrieveRangeParams {
+export interface MarketChartGetRangeParams {
   /**
    * starting date in UNIX timestamp
    */
@@ -88,7 +86,7 @@ export interface MarketChartRetrieveRangeParams {
 
 export declare namespace MarketChart {
   export {
-    type MarketChartRetrieveRangeResponse as MarketChartRetrieveRangeResponse,
-    type MarketChartRetrieveRangeParams as MarketChartRetrieveRangeParams,
+    type MarketChartGetRangeResponse as MarketChartGetRangeResponse,
+    type MarketChartGetRangeParams as MarketChartGetRangeParams,
   };
 }

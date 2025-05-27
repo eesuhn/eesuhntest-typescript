@@ -20,46 +20,37 @@ import { APIPromise } from './core/api-promise';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
-import { Key, KeyRetrieveResponse } from './resources/key';
-import {
-  Simple,
-  SimpleGetPriceParams,
-  SimpleGetPriceResponse,
-  SimpleGetTokenPriceParams,
-  SimpleGetTokenPriceResponse,
-} from './resources/simple';
+import { Key, KeyGetResponse } from './resources/key';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
-import {
-  CoinListCategoriesParams,
-  CoinListCategoriesResponse,
-  CoinListParams,
-  CoinListResponse,
-  CoinRetrieveParams,
-  CoinRetrieveResponse,
-  Coins,
-} from './resources/coins/coins';
+import { CoinGetIDParams, CoinGetIDResponse, Coins } from './resources/coins/coins';
 import { Onchain } from './resources/onchain/onchain';
+import { Simple } from './resources/simple/simple';
 
 const environments = {
-  production: 'https://pro-api.coingecko.com/api/v3',
-  environment_1: 'https://api.coingecko.com/api/v3',
+  pro: 'https://pro-api.coingecko.com/api/v3',
+  demo: 'https://api.coingecko.com/api/v3',
 };
 type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
+   * CoinGecko Pro API Key
+   */
+  proAPIKey?: string | null | undefined;
+
+  /**
    * CoinGecko Demo API Key
    */
-  apiKey?: string | null | undefined;
+  demoAPIKey?: string | null | undefined;
 
   /**
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://pro-api.coingecko.com/api/v3`
-   * - `environment_1` corresponds to `https://api.coingecko.com/api/v3`
+   * - `pro` corresponds to `https://pro-api.coingecko.com/api/v3`
+   * - `demo` corresponds to `https://api.coingecko.com/api/v3`
    */
   environment?: Environment | undefined;
 
@@ -134,7 +125,8 @@ export interface ClientOptions {
  * API Client for interfacing with the Eesuhntest API.
  */
 export class Eesuhntest {
-  apiKey: string | null;
+  proAPIKey: string | null;
+  demoAPIKey: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -151,8 +143,9 @@ export class Eesuhntest {
   /**
    * API Client for interfacing with the Eesuhntest API.
    *
-   * @param {string | null | undefined} [opts.apiKey=process.env['EESUHNTEST_API_KEY'] ?? null]
-   * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
+   * @param {string | null | undefined} [opts.proAPIKey=process.env['COINGECKO_PRO_API_KEY'] ?? null]
+   * @param {string | null | undefined} [opts.demoAPIKey=process.env['COINGECKO_DEMO_API_KEY'] ?? null]
+   * @param {Environment} [opts.environment=pro] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['EESUHNTEST_BASE_URL'] ?? https://pro-api.coingecko.com/api/v3] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -163,14 +156,16 @@ export class Eesuhntest {
    */
   constructor({
     baseURL = readEnv('EESUHNTEST_BASE_URL'),
-    apiKey = readEnv('EESUHNTEST_API_KEY') ?? null,
+    proAPIKey = readEnv('COINGECKO_PRO_API_KEY') ?? null,
+    demoAPIKey = readEnv('COINGECKO_DEMO_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {
-      apiKey,
+      proAPIKey,
+      demoAPIKey,
       ...opts,
       baseURL,
-      environment: opts.environment ?? 'production',
+      environment: opts.environment ?? 'pro',
     };
 
     if (baseURL && opts.environment) {
@@ -179,7 +174,7 @@ export class Eesuhntest {
       );
     }
 
-    this.baseURL = options.baseURL || environments[options.environment || 'production'];
+    this.baseURL = options.baseURL || environments[options.environment || 'pro'];
     this.timeout = options.timeout ?? Eesuhntest.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
@@ -196,7 +191,8 @@ export class Eesuhntest {
 
     this._options = options;
 
-    this.apiKey = apiKey;
+    this.proAPIKey = proAPIKey;
+    this.demoAPIKey = demoAPIKey;
   }
 
   /**
@@ -212,7 +208,8 @@ export class Eesuhntest {
       logger: this.logger,
       logLevel: this.logLevel,
       fetchOptions: this.fetchOptions,
-      apiKey: this.apiKey,
+      proAPIKey: this.proAPIKey,
+      demoAPIKey: this.demoAPIKey,
       ...options,
     });
   }
@@ -222,7 +219,14 @@ export class Eesuhntest {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    if (this.apiKey && values.get('x-cg-demo-api-key')) {
+    if (this.proAPIKey && values.get('x-cg-pro-api-key')) {
+      return;
+    }
+    if (nulls.has('x-cg-pro-api-key')) {
+      return;
+    }
+
+    if (this.demoAPIKey && values.get('x-cg-demo-api-key')) {
       return;
     }
     if (nulls.has('x-cg-demo-api-key')) {
@@ -230,15 +234,26 @@ export class Eesuhntest {
     }
 
     throw new Error(
-      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "x-cg-demo-api-key" headers to be explicitly omitted',
+      'Could not resolve authentication method. Expected either proAPIKey or demoAPIKey to be set. Or for one of the "x-cg-pro-api-key" or "x-cg-demo-api-key" headers to be explicitly omitted',
     );
   }
 
   protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
-    if (this.apiKey == null) {
+    return buildHeaders([this.proKeyAuth(opts), this.demoKeyAuth(opts)]);
+  }
+
+  protected proKeyAuth(opts: FinalRequestOptions): NullableHeaders | undefined {
+    if (this.proAPIKey == null) {
       return undefined;
     }
-    return buildHeaders([{ 'x-cg-demo-api-key': this.apiKey }]);
+    return buildHeaders([{ 'x-cg-pro-api-key': this.proAPIKey }]);
+  }
+
+  protected demoKeyAuth(opts: FinalRequestOptions): NullableHeaders | undefined {
+    if (this.demoAPIKey == null) {
+      return undefined;
+    }
+    return buildHeaders([{ 'x-cg-demo-api-key': this.demoAPIKey }]);
   }
 
   /**
@@ -738,37 +753,27 @@ export class Eesuhntest {
 
   static toFile = Uploads.toFile;
 
-  key: API.Key = new API.Key(this);
-  simple: API.Simple = new API.Simple(this);
   coins: API.Coins = new API.Coins(this);
+  key: API.Key = new API.Key(this);
   onchain: API.Onchain = new API.Onchain(this);
+  simple: API.Simple = new API.Simple(this);
 }
-Eesuhntest.Key = Key;
-Eesuhntest.Simple = Simple;
 Eesuhntest.Coins = Coins;
+Eesuhntest.Key = Key;
 Eesuhntest.Onchain = Onchain;
+Eesuhntest.Simple = Simple;
 export declare namespace Eesuhntest {
   export type RequestOptions = Opts.RequestOptions;
 
-  export { Key as Key, type KeyRetrieveResponse as KeyRetrieveResponse };
-
-  export {
-    Simple as Simple,
-    type SimpleGetPriceResponse as SimpleGetPriceResponse,
-    type SimpleGetTokenPriceResponse as SimpleGetTokenPriceResponse,
-    type SimpleGetPriceParams as SimpleGetPriceParams,
-    type SimpleGetTokenPriceParams as SimpleGetTokenPriceParams,
-  };
-
   export {
     Coins as Coins,
-    type CoinRetrieveResponse as CoinRetrieveResponse,
-    type CoinListResponse as CoinListResponse,
-    type CoinListCategoriesResponse as CoinListCategoriesResponse,
-    type CoinRetrieveParams as CoinRetrieveParams,
-    type CoinListParams as CoinListParams,
-    type CoinListCategoriesParams as CoinListCategoriesParams,
+    type CoinGetIDResponse as CoinGetIDResponse,
+    type CoinGetIDParams as CoinGetIDParams,
   };
 
+  export { Key as Key, type KeyGetResponse as KeyGetResponse };
+
   export { Onchain as Onchain };
+
+  export { Simple as Simple };
 }

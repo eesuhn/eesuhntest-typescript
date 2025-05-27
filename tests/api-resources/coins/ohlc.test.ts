@@ -1,13 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 
-const client = new Eesuhntest({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
+const client = new Eesuhntest({
+  proAPIKey: 'My Pro API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource ohlc', () => {
   // skipped: tests are disabled for the time being
-  test.skip('retrieveRange: only required params', async () => {
-    const responsePromise = client.coins.ohlc.retrieveRange('bitcoin', {
+  test.skip('getRange: only required params', async () => {
+    const responsePromise = client.coins.ohlc.getRange('bitcoin', {
       from: 0,
       interval: 'daily',
       to: 0,
@@ -23,8 +26,8 @@ describe('resource ohlc', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('retrieveRange: required and optional params', async () => {
-    const response = await client.coins.ohlc.retrieveRange('bitcoin', {
+  test.skip('getRange: required and optional params', async () => {
+    const response = await client.coins.ohlc.getRange('bitcoin', {
       from: 0,
       interval: 'daily',
       to: 0,

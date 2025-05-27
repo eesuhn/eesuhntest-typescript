@@ -9,8 +9,8 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "eesuhntest/*": ["src/*"],
-      "eesuhntest": ["src/index.ts"]
+      "@eesuhn/eesuhntest-typescript/*": ["src/*"],
+      "@eesuhn/eesuhntest-typescript": ["src/index.ts"]
     },
     "noEmit": true,
 

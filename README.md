@@ -1,6 +1,6 @@
 # Eesuhntest TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/eesuhntest.svg)](https://npmjs.org/package/eesuhntest) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/eesuhntest)
+[![NPM version](https://img.shields.io/npm/v/@eesuhn/eesuhntest-typescript.svg)](https://npmjs.org/package/@eesuhn/eesuhntest-typescript) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@eesuhn/eesuhntest-typescript)
 
 This library provides convenient access to the Eesuhntest REST API from server-side TypeScript or JavaScript.
 
@@ -15,7 +15,7 @@ npm install git+ssh://git@github.com:stainless-sdks/eesuhntest-typescript.git
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://app.stainless.com/docs/guides/publish), this will become: `npm install eesuhntest`
+> Once this package is [published to npm](https://app.stainless.com/docs/guides/publish), this will become: `npm install @eesuhn/eesuhntest-typescript`
 
 ## Usage
 
@@ -23,16 +23,17 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 
 const client = new Eesuhntest({
-  environment: 'environment_1', // defaults to 'production'
+  proAPIKey: process.env['COINGECKO_PRO_API_KEY'], // This is the default and can be omitted
+  environment: 'demo', // defaults to 'pro'
 });
 
 async function main() {
-  const key = await client.key.retrieve();
+  const price = await client.simple.price.get({ vs_currencies: 'usd', ids: 'bitcoin' });
 
-  console.log(key.current_remaining_monthly_calls);
+  console.log(price.last_updated_at);
 }
 
 main();
@@ -44,14 +45,16 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 
 const client = new Eesuhntest({
-  environment: 'environment_1', // defaults to 'production'
+  proAPIKey: process.env['COINGECKO_PRO_API_KEY'], // This is the default and can be omitted
+  environment: 'demo', // defaults to 'pro'
 });
 
 async function main() {
-  const key: Eesuhntest.KeyRetrieveResponse = await client.key.retrieve();
+  const params: Eesuhntest.Simple.PriceGetParams = { vs_currencies: 'usd', ids: 'bitcoin' };
+  const price: Eesuhntest.Simple.PriceGetResponse = await client.simple.price.get(params);
 }
 
 main();
@@ -68,7 +71,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const key = await client.key.retrieve().catch(async (err) => {
+  const price = await client.simple.price.get({ vs_currencies: 'usd', ids: 'bitcoin' }).catch(async (err) => {
     if (err instanceof Eesuhntest.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -111,7 +114,7 @@ const client = new Eesuhntest({
 });
 
 // Or, configure per-request:
-await client.key.retrieve({
+await client.simple.price.get({ vs_currencies: 'usd', ids: 'bitcoin' }, {
   maxRetries: 5,
 });
 ```
@@ -128,7 +131,7 @@ const client = new Eesuhntest({
 });
 
 // Override per-request:
-await client.key.retrieve({
+await client.simple.price.get({ vs_currencies: 'usd', ids: 'bitcoin' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -151,13 +154,15 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Eesuhntest();
 
-const response = await client.key.retrieve().asResponse();
+const response = await client.simple.price.get({ vs_currencies: 'usd', ids: 'bitcoin' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: key, response: raw } = await client.key.retrieve().withResponse();
+const { data: price, response: raw } = await client.simple.price
+  .get({ vs_currencies: 'usd', ids: 'bitcoin' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(key.current_remaining_monthly_calls);
+console.log(price.last_updated_at);
 ```
 
 ### Logging
@@ -174,7 +179,7 @@ The log level can be configured in two ways:
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 
 const client = new Eesuhntest({
   logLevel: 'debug', // Show all log messages
@@ -202,7 +207,7 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 import pino from 'pino';
 
 const logger = pino();
@@ -272,7 +277,7 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 import fetch from 'my-fetch';
 
 const client = new Eesuhntest({ fetch });
@@ -283,7 +288,7 @@ const client = new Eesuhntest({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 
 const client = new Eesuhntest({
   fetchOptions: {
@@ -300,7 +305,7 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
@@ -314,7 +319,7 @@ const client = new Eesuhntest({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import Eesuhntest from 'eesuhntest';
+import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 
 const client = new Eesuhntest({
   fetchOptions: {
@@ -326,7 +331,7 @@ const client = new Eesuhntest({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import Eesuhntest from 'npm:eesuhntest';
+import Eesuhntest from 'npm:@eesuhn/eesuhntest-typescript';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
 const client = new Eesuhntest({

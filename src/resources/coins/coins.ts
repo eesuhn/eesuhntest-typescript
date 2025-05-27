@@ -1,19 +1,21 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as CategoriesAPI from './categories';
+import { Categories, CategoryGetParams, CategoryGetResponse } from './categories';
+import * as ListAPI from './list';
+import { List, ListGetParams, ListGetResponse } from './list';
 import * as MarketChartAPI from './market-chart';
-import {
-  MarketChart,
-  MarketChartRetrieveRangeParams,
-  MarketChartRetrieveRangeResponse,
-} from './market-chart';
+import { MarketChart, MarketChartGetRangeParams, MarketChartGetRangeResponse } from './market-chart';
 import * as OhlcAPI from './ohlc';
-import { Ohlc, OhlcRetrieveRangeParams, OhlcRetrieveRangeResponse } from './ohlc';
+import { Ohlc, OhlcGetRangeParams, OhlcGetRangeResponse } from './ohlc';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Coins extends APIResource {
+  categories: CategoriesAPI.Categories = new CategoriesAPI.Categories(this._client);
+  list: ListAPI.List = new ListAPI.List(this._client);
   marketChart: MarketChartAPI.MarketChart = new MarketChartAPI.MarketChart(this._client);
   ohlc: OhlcAPI.Ohlc = new OhlcAPI.Ohlc(this._client);
 
@@ -25,51 +27,19 @@ export class Coins extends APIResource {
    *
    * @example
    * ```ts
-   * const coin = await client.coins.retrieve('bitcoin');
+   * const response = await client.coins.getID('bitcoin');
    * ```
    */
-  retrieve(
+  getID(
     id: string,
-    query: CoinRetrieveParams | null | undefined = {},
+    query: CoinGetIDParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CoinRetrieveResponse> {
+  ): APIPromise<CoinGetIDResponse> {
     return this._client.get(path`/coins/${id}`, { query, ...options });
-  }
-
-  /**
-   * This endpoint allows you to **query all the supported coins on CoinGecko with
-   * coins ID, name and symbol**
-   *
-   * @example
-   * ```ts
-   * const coins = await client.coins.list();
-   * ```
-   */
-  list(
-    query: CoinListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CoinListResponse> {
-    return this._client.get('/coins/list', { query, ...options });
-  }
-
-  /**
-   * This endpoint allows you to **query all the coins categories with market data
-   * (market cap, volume, ...) on CoinGecko**
-   *
-   * @example
-   * ```ts
-   * const response = await client.coins.listCategories();
-   * ```
-   */
-  listCategories(
-    query: CoinListCategoriesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CoinListCategoriesResponse> {
-    return this._client.get('/coins/categories', { query, ...options });
   }
 }
 
-export interface CoinRetrieveResponse {
+export interface CoinGetIDResponse {
   /**
    * coin ID
    */
@@ -98,7 +68,7 @@ export interface CoinRetrieveResponse {
   /**
    * coin community data
    */
-  community_data?: CoinRetrieveResponse.CommunityData;
+  community_data?: CoinGetIDResponse.CommunityData;
 
   /**
    * coin country of origin
@@ -118,7 +88,7 @@ export interface CoinRetrieveResponse {
   /**
    * coin developer data
    */
-  developer_data?: CoinRetrieveResponse.DeveloperData;
+  developer_data?: CoinGetIDResponse.DeveloperData;
 
   /**
    * coin genesis date
@@ -133,7 +103,7 @@ export interface CoinRetrieveResponse {
   /**
    * coin image url
    */
-  image?: CoinRetrieveResponse.Image;
+  image?: CoinGetIDResponse.Image;
 
   /**
    * coin last updated timestamp
@@ -143,7 +113,7 @@ export interface CoinRetrieveResponse {
   /**
    * links
    */
-  links?: CoinRetrieveResponse.Links;
+  links?: CoinGetIDResponse.Links;
 
   /**
    * coin name localization
@@ -158,7 +128,7 @@ export interface CoinRetrieveResponse {
   /**
    * coin market data
    */
-  market_data?: CoinRetrieveResponse.MarketData;
+  market_data?: CoinGetIDResponse.MarketData;
 
   /**
    * coin name
@@ -203,7 +173,7 @@ export interface CoinRetrieveResponse {
   /**
    * coin tickers
    */
-  tickers?: Array<CoinRetrieveResponse.Ticker>;
+  tickers?: Array<CoinGetIDResponse.Ticker>;
 
   /**
    * coin web slug
@@ -211,7 +181,7 @@ export interface CoinRetrieveResponse {
   web_slug?: string;
 }
 
-export namespace CoinRetrieveResponse {
+export namespace CoinGetIDResponse {
   /**
    * coin community data
    */
@@ -1012,80 +982,7 @@ export namespace CoinRetrieveResponse {
   }
 }
 
-export type CoinListResponse = Array<CoinListResponse.CoinListResponseItem>;
-
-export namespace CoinListResponse {
-  export interface CoinListResponseItem {
-    /**
-     * coin ID
-     */
-    id?: string;
-
-    /**
-     * coin name
-     */
-    name?: string;
-
-    /**
-     * coin asset platform and contract address
-     */
-    platforms?: Record<string, string>;
-
-    /**
-     * coin symbol
-     */
-    symbol?: string;
-  }
-}
-
-export interface CoinListCategoriesResponse {
-  /**
-   * category ID
-   */
-  id?: string;
-
-  /**
-   * category description
-   */
-  content?: string;
-
-  /**
-   * category market cap
-   */
-  market_cap?: number;
-
-  /**
-   * category market cap change in 24 hours
-   */
-  market_cap_change_24h?: number;
-
-  /**
-   * category name
-   */
-  name?: string;
-
-  /**
-   * images of top 3 coins in the category
-   */
-  top_3_coins?: Array<string>;
-
-  /**
-   * IDs of top 3 coins in the category
-   */
-  top_3_coins_id?: Array<string>;
-
-  /**
-   * category last updated time
-   */
-  updated_at?: string;
-
-  /**
-   * category volume in 24 hours
-   */
-  volume_24h?: number;
-}
-
-export interface CoinRetrieveParams {
+export interface CoinGetIDParams {
   /**
    * include community data, default: true
    */
@@ -1117,53 +1014,31 @@ export interface CoinRetrieveParams {
   tickers?: boolean;
 }
 
-export interface CoinListParams {
-  /**
-   * include platform and token's contract addresses, default: false
-   */
-  include_platform?: boolean;
-
-  /**
-   * filter by status of coins, default: active
-   */
-  status?: 'active' | 'inactive';
-}
-
-export interface CoinListCategoriesParams {
-  /**
-   * sort results by field, default: market_cap_desc
-   */
-  order?:
-    | 'market_cap_desc'
-    | 'market_cap_asc'
-    | 'name_desc'
-    | 'name_asc'
-    | 'market_cap_change_24h_desc'
-    | 'market_cap_change_24h_asc';
-}
-
+Coins.Categories = Categories;
+Coins.List = List;
 Coins.MarketChart = MarketChart;
 Coins.Ohlc = Ohlc;
 
 export declare namespace Coins {
+  export { type CoinGetIDResponse as CoinGetIDResponse, type CoinGetIDParams as CoinGetIDParams };
+
   export {
-    type CoinRetrieveResponse as CoinRetrieveResponse,
-    type CoinListResponse as CoinListResponse,
-    type CoinListCategoriesResponse as CoinListCategoriesResponse,
-    type CoinRetrieveParams as CoinRetrieveParams,
-    type CoinListParams as CoinListParams,
-    type CoinListCategoriesParams as CoinListCategoriesParams,
+    Categories as Categories,
+    type CategoryGetResponse as CategoryGetResponse,
+    type CategoryGetParams as CategoryGetParams,
   };
+
+  export { List as List, type ListGetResponse as ListGetResponse, type ListGetParams as ListGetParams };
 
   export {
     MarketChart as MarketChart,
-    type MarketChartRetrieveRangeResponse as MarketChartRetrieveRangeResponse,
-    type MarketChartRetrieveRangeParams as MarketChartRetrieveRangeParams,
+    type MarketChartGetRangeResponse as MarketChartGetRangeResponse,
+    type MarketChartGetRangeParams as MarketChartGetRangeParams,
   };
 
   export {
     Ohlc as Ohlc,
-    type OhlcRetrieveRangeResponse as OhlcRetrieveRangeResponse,
-    type OhlcRetrieveRangeParams as OhlcRetrieveRangeParams,
+    type OhlcGetRangeResponse as OhlcGetRangeResponse,
+    type OhlcGetRangeParams as OhlcGetRangeParams,
   };
 }
