@@ -1,16 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export { Networks, type NetworkGetResponse, type NetworkGetParams } from './networks';
+export { Pools, type PoolGetResponse, type PoolGetParams } from './pools/index';
+export { Tokens } from './tokens/index';
 export {
-  Networks,
-  type Pool,
-  type NetworkListSupportedResponse,
-  type NetworkGetTrendingPoolsParams,
-  type NetworkListSupportedParams,
-} from './networks';
-export {
-  Pools,
-  type PoolGetMultiplePoolsResponse,
-  type PoolGetMultiplePoolsParams,
-  type PoolListTopPoolsParams,
-} from './pools';
-export { Tokens, type TokenGetMultipleTokensResponse, type TokenGetMultipleTokensParams } from './tokens';
+  TrendingPools,
+  type TrendingPoolGetNetworkResponse,
+  type TrendingPoolGetNetworkParams,
+} from './trending-pools';

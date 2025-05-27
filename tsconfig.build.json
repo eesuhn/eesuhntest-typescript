@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "eesuhntest/*": ["dist/src/*"],
-      "eesuhntest": ["dist/src/index.ts"]
+      "@eesuhn/eesuhntest-typescript/*": ["dist/src/*"],
+      "@eesuhn/eesuhntest-typescript": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

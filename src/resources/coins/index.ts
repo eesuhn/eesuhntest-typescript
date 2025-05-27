@@ -1,17 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  Coins,
-  type CoinRetrieveResponse,
-  type CoinListResponse,
-  type CoinListCategoriesResponse,
-  type CoinRetrieveParams,
-  type CoinListParams,
-  type CoinListCategoriesParams,
-} from './coins';
+export { Categories, type CategoryGetResponse, type CategoryGetParams } from './categories';
+export { Coins, type CoinGetIDResponse, type CoinGetIDParams } from './coins';
+export { List, type ListGetResponse, type ListGetParams } from './list';
 export {
   MarketChart,
-  type MarketChartRetrieveRangeResponse,
-  type MarketChartRetrieveRangeParams,
+  type MarketChartGetRangeResponse,
+  type MarketChartGetRangeParams,
 } from './market-chart';
-export { Ohlc, type OhlcRetrieveRangeResponse, type OhlcRetrieveRangeParams } from './ohlc';
+export { Ohlc, type OhlcGetRangeResponse, type OhlcGetRangeParams } from './ohlc';

@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'eesuhntest/internal/uploads';
-import { toFile } from 'eesuhntest/core/uploads';
+import { multipartFormRequestOptions, createForm } from '@eesuhn/eesuhntest-typescript/internal/uploads';
+import { toFile } from '@eesuhn/eesuhntest-typescript/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

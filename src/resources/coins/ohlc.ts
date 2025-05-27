@@ -12,24 +12,24 @@ export class Ohlc extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.coins.ohlc.retrieveRange(
+   * const response = await client.coins.ohlc.getRange(
    *   'bitcoin',
    *   { from: 0, interval: 'daily', to: 0, vs_currency: 'usd' },
    * );
    * ```
    */
-  retrieveRange(
+  getRange(
     id: string,
-    query: OhlcRetrieveRangeParams,
+    query: OhlcGetRangeParams,
     options?: RequestOptions,
-  ): APIPromise<OhlcRetrieveRangeResponse> {
+  ): APIPromise<OhlcGetRangeResponse> {
     return this._client.get(path`/coins/${id}/ohlc/range`, { query, ...options });
   }
 }
 
-export type OhlcRetrieveRangeResponse = Array<Array<number>>;
+export type OhlcGetRangeResponse = Array<Array<number>>;
 
-export interface OhlcRetrieveRangeParams {
+export interface OhlcGetRangeParams {
   /**
    * starting date in UNIX timestamp
    */
@@ -53,8 +53,5 @@ export interface OhlcRetrieveRangeParams {
 }
 
 export declare namespace Ohlc {
-  export {
-    type OhlcRetrieveRangeResponse as OhlcRetrieveRangeResponse,
-    type OhlcRetrieveRangeParams as OhlcRetrieveRangeParams,
-  };
+  export { type OhlcGetRangeResponse as OhlcGetRangeResponse, type OhlcGetRangeParams as OhlcGetRangeParams };
 }

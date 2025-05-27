@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Eesuhntest } from 'eesuhntest';
+import { Eesuhntest } from '@eesuhn/eesuhntest-typescript';
 
 const { stringifyQuery } = Eesuhntest.prototype as any;
 
