@@ -3,21 +3,6 @@
 import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
-import get_id_coins from './coins/get-id-coins';
-import get_coins_categories from './coins/categories/get-coins-categories';
-import get_coins_list from './coins/list/get-coins-list';
-import get_range_coins_market_chart from './coins/market-chart/get-range-coins-market-chart';
-import get_range_coins_ohlc from './coins/ohlc/get-range-coins-ohlc';
-import get_onchain_networks from './onchain/networks/get-onchain-networks';
-import get_network_networks_onchain_trending_pools from './onchain/networks/trending-pools/get-network-networks-onchain-trending-pools';
-import get_networks_onchain_pools from './onchain/networks/pools/get-networks-onchain-pools';
-import get_addresses_pools_networks_onchain_multi from './onchain/networks/pools/multi/get-addresses-pools-networks-onchain-multi';
-import get_addresses_tokens_networks_onchain_multi from './onchain/networks/tokens/multi/get-addresses-tokens-networks-onchain-multi';
-import get_pools_onchain_megafilter from './onchain/pools/megafilter/get-pools-onchain-megafilter';
-import get_addresses_networks_simple_onchain_token_price from './onchain/simple/networks/token-price/get-addresses-networks-simple-onchain-token-price';
-import get_simple_price from './simple/price/get-simple-price';
-import get_id_simple_token_price from './simple/token-price/get-id-simple-token-price';
-
 export type HandlerFunction = (client: Eesuhntest, args: Record<string, unknown> | undefined) => Promise<any>;
 
 export type Metadata = {
@@ -41,21 +26,6 @@ export const endpoints: Endpoint[] = [];
 function addEndpoint(endpoint: Endpoint) {
   endpoints.push(endpoint);
 }
-
-addEndpoint(get_id_coins);
-addEndpoint(get_coins_categories);
-addEndpoint(get_coins_list);
-addEndpoint(get_range_coins_market_chart);
-addEndpoint(get_range_coins_ohlc);
-addEndpoint(get_onchain_networks);
-addEndpoint(get_network_networks_onchain_trending_pools);
-addEndpoint(get_networks_onchain_pools);
-addEndpoint(get_addresses_pools_networks_onchain_multi);
-addEndpoint(get_addresses_tokens_networks_onchain_multi);
-addEndpoint(get_pools_onchain_megafilter);
-addEndpoint(get_addresses_networks_simple_onchain_token_price);
-addEndpoint(get_simple_price);
-addEndpoint(get_id_simple_token_price);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';

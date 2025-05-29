@@ -19,7 +19,7 @@ export { endpoints } from './tools';
 export const server = new McpServer(
   {
     name: 'eesuhn_eesuhntest_typescript_api',
-    version: '0.1.0-alpha.4',
+    version: '0.1.0-alpha.5',
   },
   {
     capabilities: {
@@ -80,7 +80,7 @@ export function selectTools(endpoints: Endpoint[], options: ParsedOptions) {
   }
 
   if (includedTools.length === 0) {
-    includedTools.push(...endpoints);
+    includedTools.push(...dynamicTools(endpoints));
   }
 
   return applyCompatibilityTransformations(includedTools, options.capabilities);

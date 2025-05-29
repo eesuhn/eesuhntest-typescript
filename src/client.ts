@@ -20,6 +20,7 @@ import { APIPromise } from './core/api-promise';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
+import { Key, KeyGetResponse } from './resources/key';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
@@ -753,10 +754,12 @@ export class Eesuhntest {
   static toFile = Uploads.toFile;
 
   coins: API.Coins = new API.Coins(this);
+  key: API.Key = new API.Key(this);
   onchain: API.Onchain = new API.Onchain(this);
   simple: API.Simple = new API.Simple(this);
 }
 Eesuhntest.Coins = Coins;
+Eesuhntest.Key = Key;
 Eesuhntest.Onchain = Onchain;
 Eesuhntest.Simple = Simple;
 export declare namespace Eesuhntest {
@@ -767,6 +770,8 @@ export declare namespace Eesuhntest {
     type CoinGetIDResponse as CoinGetIDResponse,
     type CoinGetIDParams as CoinGetIDParams,
   };
+
+  export { Key as Key, type KeyGetResponse as KeyGetResponse };
 
   export { Onchain as Onchain };
 
