@@ -133,9 +133,42 @@ over time, you can manually enable or disable certain capabilities:
 ## Importing the tools and server individually
 
 ```js
+// Import the server, generated endpoints, or the init function
+import { server, endpoints, init } from "@eesuhn/eesuhntest-mcp/server";
 
+// import a specific tool
+import getIDCoins from "@eesuhn/eesuhntest-mcp/tools/coins/get-id-coins";
+
+// initialize the server and all endpoints
+init({ server, endpoints });
+
+// manually start server
+const transport = new StdioServerTransport();
+await server.connect(transport);
+
+// or initialize your own server with specific tools
+const myServer = new McpServer(...);
+
+// define your own endpoint
+const myCustomEndpoint = {
+  tool: {
+    name: 'my_custom_tool',
+    description: 'My custom tool',
+    inputSchema: zodToJsonSchema(z.object({ a_property: z.string() })),
+  },
+  handler: async (client: client, args: any) => {
+    return { myResponse: 'Hello world!' };
+  })
+};
+
+// initialize the server with your custom endpoints
+init({ server: myServer, endpoints: [getIDCoins, myCustomEndpoint] });
 ```
 
 ## Available Tools
 
 The following tools are available in this MCP server.
+
+### Resource `coins`:
+
+- `get_id_coins` (`read`): This endpoint allows you to **query all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on a particular coin ID**
