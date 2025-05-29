@@ -48,16 +48,6 @@ Methods:
 
 - <code title="get /coins/{id}/ohlc/range">client.coins.ohlc.<a href="./src/resources/coins/ohlc.ts">getRange</a>(id, { ...params }) -> OhlcGetRangeResponse</code>
 
-# Key
-
-Types:
-
-- <code><a href="./src/resources/key.ts">KeyGetResponse</a></code>
-
-Methods:
-
-- <code title="get /key">client.key.<a href="./src/resources/key.ts">get</a>() -> KeyGetResponse</code>
-
 # Onchain
 
 ## Networks

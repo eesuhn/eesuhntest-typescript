@@ -27,7 +27,7 @@ For clients with a configuration JSON, it might look something like this:
   "mcpServers": {
     "eesuhn_eesuhntest_typescript_api": {
       "command": "npx",
-      "args": ["-y", "@eesuhn/eesuhntest-mcp", "--client=claude", "--tools=dynamic"],
+      "args": ["-y", "@eesuhn/eesuhntest-mcp", "--client=claude", "--tools=all"],
       "env": {
         "COINGECKO_PRO_API_KEY": "My Pro API Key",
         "COINGECKO_DEMO_API_KEY": "My Demo API Key",
@@ -188,10 +188,6 @@ The following tools are available in this MCP server.
 ### Resource `coins.ohlc`:
 
 - `get_range_coins_ohlc` (`read`): This endpoint allows you to **get the OHLC chart (Open, High, Low, Close) of a coin within a range of timestamp based on particular coin ID**
-
-### Resource `key`:
-
-- `get_key` (`read`): This endpoint allows you to **monitor your account's API usage, including rate limits, monthly total credits, remaining credits, and more**
 
 ### Resource `onchain.networks`:
 
