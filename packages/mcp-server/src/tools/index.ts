@@ -3,6 +3,8 @@
 import Eesuhntest from '@eesuhn/eesuhntest-typescript';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
+import get_id_coins from './coins/get-id-coins';
+
 export type HandlerFunction = (client: Eesuhntest, args: Record<string, unknown> | undefined) => Promise<any>;
 
 export type Metadata = {
@@ -26,6 +28,8 @@ export const endpoints: Endpoint[] = [];
 function addEndpoint(endpoint: Endpoint) {
   endpoints.push(endpoint);
 }
+
+addEndpoint(get_id_coins);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';
