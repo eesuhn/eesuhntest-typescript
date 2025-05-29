@@ -12,7 +12,7 @@ You can run the MCP Server directly via `npx`:
 export COINGECKO_PRO_API_KEY="My Pro API Key"
 export COINGECKO_DEMO_API_KEY="My Demo API Key"
 export EESUHNTEST_ENVIRONMENT="pro"
-npx -y @eesuhn/eesuhntest-mcp@latest
+npx -y @eesuhn/eesuhntest-typescript-mcp@latest
 ```
 
 ### Via MCP Client
@@ -27,7 +27,7 @@ For clients with a configuration JSON, it might look something like this:
   "mcpServers": {
     "eesuhn_eesuhntest_typescript_api": {
       "command": "npx",
-      "args": ["-y", "@eesuhn/eesuhntest-mcp", "--client=claude", "--tools=dynamic"],
+      "args": ["-y", "@eesuhn/eesuhntest-typescript-mcp", "--client=claude", "--tools=dynamic"],
       "env": {
         "COINGECKO_PRO_API_KEY": "My Pro API Key",
         "COINGECKO_DEMO_API_KEY": "My Demo API Key",
@@ -134,10 +134,10 @@ over time, you can manually enable or disable certain capabilities:
 
 ```js
 // Import the server, generated endpoints, or the init function
-import { server, endpoints, init } from "@eesuhn/eesuhntest-mcp/server";
+import { server, endpoints, init } from "@eesuhn/eesuhntest-typescript-mcp/server";
 
 // import a specific tool
-import getIDCoins from "@eesuhn/eesuhntest-mcp/tools/coins/get-id-coins";
+import getIDCoins from "@eesuhn/eesuhntest-typescript-mcp/tools/coins/get-id-coins";
 
 // initialize the server and all endpoints
 init({ server, endpoints });
@@ -173,6 +173,58 @@ The following tools are available in this MCP server.
 
 - `get_id_coins` (`read`): This endpoint allows you to **query all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on a particular coin ID**
 
+### Resource `coins.categories`:
+
+- `get_coins_categories` (`read`): This endpoint allows you to **query all the coins categories with market data (market cap, volume, ...) on CoinGecko**
+
+### Resource `coins.list`:
+
+- `get_coins_list` (`read`): This endpoint allows you to **query all the supported coins on CoinGecko with coins ID, name and symbol**
+
+### Resource `coins.market_chart`:
+
+- `get_range_coins_market_chart` (`read`): This endpoint allows you to **get the historical chart data of a coin within certain time range in UNIX along with price, market cap and 24hr volume based on particular coin ID**
+
+### Resource `coins.ohlc`:
+
+- `get_range_coins_ohlc` (`read`): This endpoint allows you to **get the OHLC chart (Open, High, Low, Close) of a coin within a range of timestamp based on particular coin ID**
+
 ### Resource `key`:
 
 - `get_key` (`read`): This endpoint allows you to **monitor your account's API usage, including rate limits, monthly total credits, remaining credits, and more**
+
+### Resource `onchain.networks`:
+
+- `get_onchain_networks` (`read`): This endpoint allows you to **query all the supported networks on GeckoTerminal**
+
+### Resource `onchain.networks.trending_pools`:
+
+- `get_network_networks_onchain_trending_pools` (`read`): This endpoint allows you to **query the trending pools based on the provided network**
+
+### Resource `onchain.networks.pools`:
+
+- `get_networks_onchain_pools` (`read`): This endpoint allows you to **query all the top pools based on the provided network**
+
+### Resource `onchain.networks.pools.multi`:
+
+- `get_addresses_pools_networks_onchain_multi` (`read`): This endpoint allows you to **query multiple pools based on the provided network and pool address**
+
+### Resource `onchain.networks.tokens.multi`:
+
+- `get_addresses_tokens_networks_onchain_multi` (`read`): This endpoint allows you to **query multiple tokens data based on the provided token contract addresses on a network**
+
+### Resource `onchain.pools.megafilter`:
+
+- `get_pools_onchain_megafilter` (`read`): This endpoint allows you to **query pools based on various filters across all networks on GeckoTerminal**
+
+### Resource `onchain.simple.networks.token_price`:
+
+- `get_addresses_networks_simple_onchain_token_price` (`read`): This endpoint allows you to **get token price based on the provided token contract address on a network**
+
+### Resource `simple.price`:
+
+- `get_simple_price` (`read`): This endpoint allows you to **query the prices of one or more coins by using their unique Coin API IDs**
+
+### Resource `simple.token_price`:
+
+- `get_id_simple_token_price` (`read`): This endpoint allows you to **query one or more token prices using their token contract addresses**
