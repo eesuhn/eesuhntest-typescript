@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-05-29)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **mcp:** include http information in tools ([e276ee9](https://github.com/eesuhn/eesuhntest-typescript/commit/e276ee992d1b78ff89358787ec8e7d6e061dcdd7))
+
+
+### Chores
+
+* **mcp:** remove duplicate assignment ([b85f6b9](https://github.com/eesuhn/eesuhntest-typescript/commit/b85f6b9036da6404d7afda732c0df88d8cc55213))
+
 ## 0.1.0-alpha.2 (2025-05-28)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
