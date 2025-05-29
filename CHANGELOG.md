@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2025-05-29)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* **api:** update via SDK Studio ([6b63390](https://github.com/eesuhn/eesuhntest-typescript/commit/6b633906b296a2799ae0531d3e8b3f9ac0622f17))
+* **api:** update via SDK Studio ([8ed668c](https://github.com/eesuhn/eesuhntest-typescript/commit/8ed668c02ff6a46075a5f2928f1f17fb2b3daf0d))
+
 ## 0.1.0-alpha.5 (2025-05-29)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
