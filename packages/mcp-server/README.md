@@ -27,7 +27,7 @@ For clients with a configuration JSON, it might look something like this:
   "mcpServers": {
     "eesuhn_eesuhntest_typescript_api": {
       "command": "npx",
-      "args": ["-y", "@eesuhn/eesuhntest-mcp", "--client=claude", "--tools=dynamic"],
+      "args": ["-y", "@eesuhn/eesuhntest-mcp", "--client=claude", "--tools=all"],
       "env": {
         "COINGECKO_PRO_API_KEY": "My Pro API Key",
         "COINGECKO_DEMO_API_KEY": "My Demo API Key",
