@@ -172,3 +172,7 @@ The following tools are available in this MCP server.
 ### Resource `coins`:
 
 - `get_id_coins` (`read`): This endpoint allows you to **query all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on a particular coin ID**
+
+### Resource `key`:
+
+- `get_key` (`read`): This endpoint allows you to **monitor your account's API usage, including rate limits, monthly total credits, remaining credits, and more**
