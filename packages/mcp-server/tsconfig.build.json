@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "@eesuhn/eesuhntest-typescript-mcp/*": ["dist/src/*"],
-      "@eesuhn/eesuhntest-typescript-mcp": ["dist/src/index.ts"]
+      "@eesuhn/eesuhntest-mcp/*": ["dist/src/*"],
+      "@eesuhn/eesuhntest-mcp": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
