@@ -33,4 +33,4 @@ rm dist/index.js.bak
 
 chmod +x dist/index.js
 
-DIST_PATH=./dist PKG_IMPORT_PATH=@eesuhn/eesuhntest-mcp/ node ../../scripts/utils/postprocess-files.cjs
+DIST_PATH=./dist PKG_IMPORT_PATH=@eesuhn/eesuhntest-typescript-mcp/ node ../../scripts/utils/postprocess-files.cjs

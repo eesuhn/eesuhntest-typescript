@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.9 (2025-05-30)
+
+Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
+
+### Bug Fixes
+
+* compat with more runtimes ([7d02c67](https://github.com/eesuhn/eesuhntest-typescript/commit/7d02c679271f33dd5b1a8a56743be024c94cccda))
+
+
+### Chores
+
+* configure new SDK language ([6446265](https://github.com/eesuhn/eesuhntest-typescript/commit/6446265e06d957b0a8573461e110bd41e6f3a276))
+
 ## 0.1.0-alpha.8 (2025-05-29)
 
 Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
