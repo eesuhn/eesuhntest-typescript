@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-alpha.12 (2025-05-30)
+
+Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
+
+### Chores
+
+* **deps:** bump eslint-plugin-prettier ([b69df1a](https://github.com/eesuhn/eesuhntest-typescript/commit/b69df1ab2aecb9e148781d0c00a3bff8d9509d5b))
+* **internal:** codegen related update ([9d34420](https://github.com/eesuhn/eesuhntest-typescript/commit/9d344205739d8d664d751bc2a730ec58845ab50e))
+* **internal:** update jest config ([a16763c](https://github.com/eesuhn/eesuhntest-typescript/commit/a16763c5a934f6f9f84eba051cf0e6910a1a49d0))
+
 ## 0.1.0-alpha.11 (2025-05-30)
 
 Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
