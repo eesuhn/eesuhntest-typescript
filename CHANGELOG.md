@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-alpha.13 (2025-06-04)
+
+Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)
+
+### Chores
+
+* adjust eslint.config.mjs ignore pattern ([8c7ab7c](https://github.com/eesuhn/eesuhntest-typescript/commit/8c7ab7c394cf7fdcc445b6912501fe841415df95))
+* **docs:** use top-level-await in example snippets ([ba68e2b](https://github.com/eesuhn/eesuhntest-typescript/commit/ba68e2b2dcc381270524f3c2a16e52e27d850272))
+* **internal:** fix readablestream types in node 20 ([13f1a6a](https://github.com/eesuhn/eesuhntest-typescript/commit/13f1a6aa6bb5d9a02c5ba9ccbf43b8015b22f70b))
+
 ## 0.1.0-alpha.12 (2025-05-30)
 
 Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
