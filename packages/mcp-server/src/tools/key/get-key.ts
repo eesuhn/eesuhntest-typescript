@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { asTextContentResult } from '@eesuhn/eesuhntest-mcp/tools/types';
+
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../';
 import Eesuhntest from '@eesuhn/eesuhntest-typescript';
@@ -23,8 +25,8 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: Eesuhntest, args: Record<string, unknown> | undefined) => {
-  return client.key.get();
+export const handler = async (client: Eesuhntest, args: Record<string, unknown> | undefined) => {
+  return asTextContentResult(await client.key.get());
 };
 
 export default { metadata, tool, handler };
