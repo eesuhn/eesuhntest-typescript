@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.14 (2025-06-07)
+
+Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
+
+### Features
+
+* **mcp:** implement support for binary responses ([58fe7aa](https://github.com/eesuhn/eesuhntest-typescript/commit/58fe7aaff24737abb1a216298db9d6bce9914bdc))
+
+
+### Chores
+
+* avoid type error in certain environments ([08b6c0c](https://github.com/eesuhn/eesuhntest-typescript/commit/08b6c0c408fc60456d70e37c9cbb58712d3d79a3))
+
 ## 0.1.0-alpha.13 (2025-06-04)
 
 Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/eesuhn/eesuhntest-typescript/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)
